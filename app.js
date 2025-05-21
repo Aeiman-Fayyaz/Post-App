@@ -2,12 +2,20 @@ const postContent = document.getElementById("postContent")
 const post = document.getElementById("post")
 let containerText = document.getElementById("containerText")
 
-
 post.addEventListener("click" , function(){
-    postContent.innerHTML = `<div>
+    
+    console.log(postContent.value);
+    containerText.innerHTML += `<div>
     <p>
     ${postContent.value}
     </p>
+    <button onclick="dltBtn(event)">Delete</button>
+    <button id="editBtn">Edit</button>
     </div>` 
-    console.log(postContent.value);
+    postContent.value = ""
 })
+
+function dltBtn(event) {
+    console.log("chal gya");
+    console.log(event.target.parentNode.remove());
+}
