@@ -3,13 +3,11 @@ const post = document.getElementById("post")
 let containerText = document.getElementById("containerText")
 
 post.addEventListener("click" , function(){
-    
-    console.log(postContent.value);
     containerText.innerHTML += `<div>
     <p>
     ${postContent.value}
     </p>
-    <button onclick="dltBtn(event)">Delete</button>
+    <button onclick="dltBtn(event)" class="dltBtn">Delete</button>
     <button id="editBtn">Edit</button>
     </div>` 
     postContent.value = ""
