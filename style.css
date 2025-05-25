@@ -12,7 +12,9 @@ h1{
     margin: 10vmin;
     padding: 5px;
     height: 70vh;
-    background-color: #720026;
+    width: 50vw;
+    border-radius: 20px;
+    /* background-color: #720026; */
     overflow: scroll;
     align-content: center;
 }
@@ -75,7 +77,7 @@ textarea::placeholder{
     background-color: white;
     color: #c1121c;    
 }
-#editBtn{
+.editBtn{
     border: none;
     border-radius: 5px;
     width: 100px;
