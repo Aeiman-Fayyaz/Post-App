@@ -10,7 +10,7 @@ post.addEventListener("click", function () {
     ${postContent.value}
     </p>
     <button onclick="dltBtn(event)" class = "dltBtn">Delete</button>
-    <button id="editBtn" class = "editBtn">Edit</button>
+    <button onclick="editBtn2(event)" class = "editBtn">Edit</button>
     </div>`;
   postContent.value = "";
 });
@@ -20,48 +20,56 @@ function dltBtn(event) {
   let dlt = event.target.parentNode.remove();
 }
 
-function editPost(event) {
-  const postContainer = event.target.parentNode;
-  const postText = postContainer.querySelector(".containerText");
-  const currentText = postText.textContent.trim();
+// Function for edit post
+// function editBtn2(event) {
+//   const postDiv = event.target.parentNode;
+//   const postText = postDiv.querySelector('p');
+//   const currentText = postText.innerText.trim();
+  
+//   // Replace text with an input field containing current text
+//   postText.innerHTML = `<input type="text" value="${currentText}" class="edit-input">`;
+  
+//   // Focus on the input field
+//   const inputField = postText.querySelector('.edit-input');
+//   inputField.focus();
+  
+//   // Handle when user presses Enter or loses focus
+//   inputField.addEventListener('blur', saveEdit);
+//   inputField.addEventListener('keypress', function(e) {
+//     if (e.key === 'Enter') {
+//       saveEdit.call(this);
+//     }
+//   });
+  
+//   function saveEdit() {
+//     const newText = this.value.trim();
+//     if (newText) {
+//       postText.innerText = newText;
+//     } else {
+//       postText.innerText = currentText; // Revert if empty
+//     }
+//   }
+// }
+function editBtn2(event) {
+  const editButton = event.target;
+  const postDiv = editButton.parentNode;
+  const postText = postDiv.querySelector('p');
+  const currentText = postText.innerText.trim();
 
-  // Create an input field with the current text
-  postText.innerHTML = `<input type="text" class="edit-input" value="${currentText}">`;
-  const editInput = postContainer.querySelector(".edit-input");
-
-  // Change the Edit button to Save button
-  const editBtn = postContainer.querySelector(".editBtn");
-  editBtn.textContent = "Save";
-  editBtn.onclick = function () {
-    saveEdit(event);
-  };
-
-  // Focus on the input field
-  editInput.focus();
-
-  // Save when pressing Enter
-  editInput.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-      saveEdit(event);
-    }
-  });
-}
-
-function saveEdit(event) {
-  const postContainer = event.target.parentNode;
-  const editInput = postContainer.querySelector(".edit-input");
-  const newText = editInput.value.trim();
-
-  if (newText !== "") {
-    // Replace input with the new text
-    const postText = postContainer.querySelector(".post-text");
-    postText.textContent = newText;
-
-    // Change Save button back to Edit button
-    const editBtn = postContainer.querySelector(".editBtn");
-    editBtn.textContent = "Edit";
-    editBtn.onclick = function () {
-      editPost(event);
-    };
+  // Check if we're already in edit mode (button says "Save")
+  if (editButton.textContent === "Save") {
+    // Save the changes
+    const inputField = postDiv.querySelector('.edit-input');
+    const newText = inputField.value.trim();
+    postText.innerText = newText || currentText; // Use new text or keep old if empty
+    editButton.textContent = "Edit"; // Change back to Edit button
+  } else {
+    // Enter edit mode
+    postText.innerHTML = `<input type="text" value="${currentText}" class="edit-input">`;
+    editButton.textContent = "Save"; // Change to Save button
+    
+    // Focus on the input field
+    const inputField = postText.querySelector('.edit-input');
+    inputField.focus();
   }
 }
